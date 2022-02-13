@@ -1,5 +1,7 @@
-from utils.game_combination import get_game_combination
-
+try:
+    from utils.game_combination import get_game_combination
+except ImportError:
+    from ..utils.game_combination import get_game_combination
 
 def test_max_space(get_games, get_pen_drive_space):
     game_combination = get_game_combination(get_games, get_pen_drive_space)

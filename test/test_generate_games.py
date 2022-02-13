@@ -1,6 +1,9 @@
 import random
 
-from utils.generate_games import generate
+try:
+    from utils.generate_games import generate
+except ImportError:
+    from ..utils.generate_games import generate
 
 
 def test_generate_game():

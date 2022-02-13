@@ -1,8 +1,8 @@
 import pytest
 
 # from create_table import create_table, seed_table, create_app, db
-from ..utils.generate_games import generate
-from ..app import create_app, db
+from utils.generate_games import generate
+from app import create_app, db
 
 
 def create_table(database):

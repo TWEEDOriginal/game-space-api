@@ -1,6 +1,6 @@
 import random
 
-from ..utils.generate_games import generate
+from utils.generate_games import generate
 
 
 def test_generate_game():

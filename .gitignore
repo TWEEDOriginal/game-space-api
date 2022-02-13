@@ -1,0 +1,12 @@
+.DS_Store
+.vscode
+__pycache__
+venv/
+venv
+.env
+.git/
+data/
+postgres_data/
+.idea
+.vscode
+.coverage

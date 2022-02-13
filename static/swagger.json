@@ -1,0 +1,172 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "Upload best combination of games to pen drive",
+    "version": "1.0.0",
+    "title": "Get best value for games application",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Game Requests",
+      "description": "APIs for uploading games to Alien Pc database and copying games to pendrive"
+    }
+  ],
+  "paths": {
+    "/status": {
+      "get": {
+        "tags": ["Check database health"],
+        "summary": "Returns database health status with response body",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getStatusresponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Unhealthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getStatusresponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "head": {
+        "tags": ["Check database health"],
+        "summary": "Returns database health status",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "502": {
+            "description": "Unhealthy"
+          }
+        }
+      }
+    },
+    "/games": {
+      "post": {
+        "tags": ["Save game to Database"],
+        "summary": "Save game to Database",
+        "requestBody": {
+          "description": "Save game Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/savegamePostBody"
+              }
+            }
+          }
+        },
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/savegamePostBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/best_value_games": {
+      "parameters": [
+        {
+          "name": "pen_drive_space",
+          "in": "query",
+          "required": true,
+          "description": "Pen drive space in integer",
+          "type": "integer"
+        }
+      ],
+      "post": {
+        "tags": ["Get game combination"],
+        "summary": "Return a combination of games that has the highest total value of all possible game combinations",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/bestvaluegamesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "getStatusresponse": {
+        "type": "object",
+        "properties": {
+          "database": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "savegamePostBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "float"
+          },
+          "space": {
+            "type": "integer"
+          }
+        }
+      },
+      "bestvaluegamesResponse": {
+        "type": "object",
+        "properties": {
+          "games": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/savegamePostBody"
+            }
+          },
+          "total_space": {
+            "type": "integer"
+          },
+          "total_value": {
+            "type": "number",
+            "format": "float"
+          },
+          "remaining_space": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found{% endblock %}
+{% block body %}
+  <div style="display:flex;
+  justify-content: center;
+  align-items:center;
+  height: 100vh;">
+    <h1>Oops! Looks like the page doesn't exist</h1>
+    
+    <p>
+        <a  href="{{ url_for('miscellanous.index') }}">Click Here</a>To go to the Home Page</p>
+  </div>
+  
+  
+
+{% endblock %}

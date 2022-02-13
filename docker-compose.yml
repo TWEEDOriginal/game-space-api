@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+
+    db:
+        image: postgres:latest
+        networks:
+          - default
+        ports:
+          - 5405:5432
+        volumes:
+          - ./postgres_data/db:/var/lib/postgresql/data
+        environment:
+          - POSTGRES_NAME=postgres
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+
+    web:
+        build:
+          context: .
+        ports:
+          - 5001:5500
+        volumes:
+          - ./:/app
+        depends_on:
+          - db
+        environment:
+          CREATE_TABLE: "true"
+
+
+
